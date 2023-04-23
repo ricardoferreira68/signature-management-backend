@@ -6,3 +6,4 @@
 
 # Launch
 rabbitmq-server
+ 

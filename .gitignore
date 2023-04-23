@@ -1,4 +1,5 @@
 .coverage
+.env.secret
 .erlang*
 .pytest_cache
 .secrets

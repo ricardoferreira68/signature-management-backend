@@ -24,15 +24,15 @@ done
 # Execute RabbitMQ config commands here
 
 # Create user
-rabbitmqctl add_user $RABBITMQ_DEFAULT_USER $RABBITMQ_DEFAULT_PASSWORD
-rabbitmqctl set_user_tags $RABBITMQ_DEFAULT_USER administrator
+rabbitmqctl add_user $RABBITMQ_USER $RABBITMQ_PASSWORD
+rabbitmqctl set_user_tags $RABBITMQ_USER administrator
 rabbitmqctl add_vhost /
-rabbitmqctl set_permissions -p / $RABBITMQ_DEFAULT_USER ".*" ".*" ".*"
-echo "$0 `date` user $RABBITMQ_DEFAULT_USER created"
+rabbitmqctl set_permissions -p / $RABBITMQ_USER ".*" ".*" ".*"
+echo "$0 `date` user $RABBITMQ_USER created"
 
 # Create queue
 rabbitmqadmin declare queue name=$RABBITMQ_READ_EMAIL_QUEUE durable=true
-echo "$0 `date` queues created"
+echo "$0 `date` queue $RABBITMQ_READ_EMAIL_QUEUE created"
 
 # Create mark so script is not ran again
 touch /$0.completed
