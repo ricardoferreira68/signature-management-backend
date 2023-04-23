@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "signature-management-backend"
+version = "0.1.0"
+description = ""
+authors = ["ricardoferreira68 <jrsf68@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "signature_management_backend"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pytest-cov = "^4.0.0"
+pytest-asyncio = "^0.21.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

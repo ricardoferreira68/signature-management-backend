@@ -1,0 +1,9 @@
+.coverage
+.erlang*
+.pytest_cache
+.secrets
+.venv
+__pycache__
+mnesia
+log
+poetry.lock
