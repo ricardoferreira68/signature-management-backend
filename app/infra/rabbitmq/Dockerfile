@@ -5,5 +5,5 @@ ADD config_rabbit.sh /
 
 RUN chmod +x /init.sh /config_rabbit.sh
 
-ENTRYPOINT ["/init.sh"]
+CMD ["/init.sh"]
  

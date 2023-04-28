@@ -4,7 +4,7 @@
 from dotenv import dotenv_values
 from os import getenv, path
 
-from app.main import load_env_vars
+from app.config_app import load_env_vars
 
 
 def test_load_env_vars():

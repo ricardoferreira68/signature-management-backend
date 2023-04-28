@@ -1,8 +1,5 @@
 #!/bin/bash
 
-export $(cat .env | xargs)
-export $(cat .secrets | xargs)
-
 # This script needs to be executed just once
 if [ -f /$0.completed ] ; then
   echo "$0 `date` /$0.completed found, skipping run"
@@ -24,6 +21,8 @@ done
 # Execute RabbitMQ config commands here
 
 # Create user
+echo "$0 `date` user: $RABBITMQ_USER"
+echo "$0 `date` user: $RABBITMQ_PASSWORD"
 rabbitmqctl add_user $RABBITMQ_USER $RABBITMQ_PASSWORD
 rabbitmqctl set_user_tags $RABBITMQ_USER administrator
 rabbitmqctl add_vhost /
