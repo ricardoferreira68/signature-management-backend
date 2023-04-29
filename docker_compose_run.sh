@@ -12,7 +12,10 @@ then
   export $(cat app/.env.secret | xargs)
 fi
 
-docker-compose up --build -d
+sed -i 's/RABBITMQ_USER/'$RABBITMQ_USER'/g' ./app/infra/rabbitmq/definitions.json
+sed -i 's/RABBITMQ_PASSWORD/'$RABBITMQ_PASSWORD'/g' ./app/infra/rabbitmq/definitions.json
+
+docker-compose up --build
 
 # docker run --name read_email_message -d -i -t read_email_message python3 /app/infra/event_bus/listen_queues.py
 # docker exec -d read_email_message python3 /app/infra/event_bus/listen_queues.py

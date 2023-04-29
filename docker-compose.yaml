@@ -5,36 +5,10 @@ services:
       context: ./app/infra/rabbitmq
     container_name: rabbitmq
     environment:
-      - RABBITMQ_USER=$RABBITMQ_USER
-      - RABBITMQ_PASSWORD=$RABBITMQ_PASSWORD
-      - RABBITMQ_READ_EMAIL_QUEUE=$RABBITMQ_READ_EMAIL_QUEUE
+      # - RABBITMQ_USER=${RABBITMQ_USER}
+      # - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+      # - RABBITMQ_DEFAULT_VHOST='vhosts'
+      - RABBITMQ_QUEUE=${RABBITMQ_READ_EMAIL_QUEUE}
     ports:
       - 5672:5672
       - 15672:15672
-    volumes:
-      - ./app/infra/rabbitmq/data:/var/lib/rabbitmq
-    networks:
-      - services-network
-
-  read_email_message:
-    build:
-      context: ./app/infra/event_bus
-    image: read_email_message
-
-    container_name: read_email_message
-    environment:
-      - RABBITMQ_SERVER_URL
-      - RABBITMQ_SERVER_PORT
-      - RABBITMQ_USER
-      - RABBITMQ_PASSWORD
-      - RABBITMQ_READ_EMAIL_QUEUE
-    volumes:
-      - ./app/infra/event_bus:/app/infra/event_bus
-    networks:
-      - services-network
-    depends_on:
-      - rabbitmq
-
-networks:
-    services-network: {}
- 

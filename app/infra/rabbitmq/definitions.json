@@ -1,0 +1,55 @@
+{
+    "users": [
+      {
+        "name": "RABBITMQ_USER",
+        "password": "RABBITMQ_PASSWORD",
+        "tags": "administrator"
+      }
+    ],
+    "vhosts": [
+      {
+        "name": "/"
+      }
+    ],
+    "permissions": [
+      {
+        "user": "RABBITMQ_USER",
+        "vhost": "/",
+        "configure": ".*",
+        "write": ".*",
+        "read": ".*"
+      }
+    ],
+    "queues": [
+        {
+            "name": "read_email_queue",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {
+                "x-queue-type": "classic"
+            }
+        }
+    ],
+    "exchanges": [
+        {
+            "name": "read_email_exchange",
+            "vhost": "/",
+            "type": "direct",
+            "durable": true,
+            "auto_delete": false,
+            "internal": false,
+            "arguments": {}
+        }
+    ],
+    "bindings": [
+        {
+            "source": "read_email_exchange",
+            "vhost": "/",
+            "destination": "read_email_queue",
+            "destination_type": "queue",
+            "routing_key": "read_email_queue",
+            "arguments": {}
+        }
+    ]
+}
