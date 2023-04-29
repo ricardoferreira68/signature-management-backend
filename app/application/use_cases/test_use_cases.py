@@ -1,5 +1,4 @@
 import pytest
-from os import getenv
 
 from app.application.use_cases.use_cases import read_message_email
 

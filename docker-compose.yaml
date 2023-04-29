@@ -1,14 +1,36 @@
 version: "3.2"
 services:
-  rabbitmq:
+  rabbitmq_host:
+    container_name: rabbitmq
     build:
       context: ./app/infra/rabbitmq
-    container_name: rabbitmq
+    image: rabbitmq:0.1.0
     environment:
-      # - RABBITMQ_USER=${RABBITMQ_USER}
-      # - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
-      # - RABBITMQ_DEFAULT_VHOST='vhosts'
       - RABBITMQ_QUEUE=${RABBITMQ_READ_EMAIL_QUEUE}
     ports:
       - 5672:5672
+      - 25672:25672
       - 15672:15672
+    networks:
+        - rabbitmq_net
+
+  read_message_mail:
+    container_name: read_message_mail
+    build:
+      context: ./app/infra/event_bus
+    image: read_message_mail:0.1.0
+    environment:
+      - READ_EMAIL_MESSAGE_RUN_CONTAINER=True
+      - RABBITMQ_SERVER_URL=rabbitmq_host
+      - RABBITMQ_SERVER_PORT=${RABBITMQ_SERVER_PORT}
+      - RABBITMQ_USER=${RABBITMQ_USER}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+      - RABBITMQ_READ_EMAIL_QUEUE=${RABBITMQ_READ_EMAIL_QUEUE}
+    depends_on:
+      - rabbitmq_host
+    networks:
+        - rabbitmq_net
+
+networks:
+  rabbitmq_net:
+    driver: bridge

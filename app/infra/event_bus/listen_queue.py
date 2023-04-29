@@ -1,28 +1,23 @@
-from amqpstorm import management
 from asyncio import run
 from os import getenv
 from pika import BlockingConnection, ConnectionParameters, PlainCredentials
 from time import sleep
 
 
-if not getenv("RUN_CONTAINER"):
+if not getenv("READ_EMAIL_MESSAGE_RUN_CONTAINER"):
     from app.config_app import load_env_vars
     load_env_vars()
 
 message = None
 
 def minha_callback(ch, method, properties, body):
+    global message
     message = body
-    print(f'message: {message}')
-    if not getenv("RUN_CONTAINER"):
+    if not getenv("READ_EMAIL_MESSAGE_RUN_CONTAINER"):
         ch.stop_consuming()
 
 
 async def connect():
-    print(f'RABBITMQ_SERVER_URL: {getenv("RABBITMQ_SERVER_URL")}')
-    print(f'RABBITMQ_SERVER_PORT: {getenv("RABBITMQ_SERVER_PORT")}')
-    print(f'RABBITMQ_USER: {getenv("RABBITMQ_USER")}')
-    print(f'RABBITMQ_PASSWORD: {getenv("RABBITMQ_PASSWORD")}')
     try:
         connection_parameters = ConnectionParameters(
             host=getenv("RABBITMQ_SERVER_URL"),
@@ -61,12 +56,13 @@ async def rabbitmq_read_email():
         )
         print(f'Listen RabbitMQ on port {getenv("RABBITMQ_SERVER_PORT")}')
         channel.start_consuming()
-        channel.close()
-        connection.close()
+        if not getenv("READ_EMAIL_MESSAGE_RUN_CONTAINER"):
+            channel.close()
+            connection.close()
         return message
     except:
         raise Exception(f'Error connect RabbitMQ!')    
-    return {'message'}
 
 
-run(rabbitmq_read_email())
+if getenv("READ_EMAIL_MESSAGE_RUN_CONTAINER"):
+    run(rabbitmq_read_email())
