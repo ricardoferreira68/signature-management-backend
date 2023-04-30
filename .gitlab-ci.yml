@@ -10,4 +10,7 @@ pages:
 
   only:
     - main
- 
+
+page2:
+  script:
+    - teste
