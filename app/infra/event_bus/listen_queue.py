@@ -1,8 +1,12 @@
 from asyncio import run
+from logging import info
 from os import getenv
 from pika import BlockingConnection, ConnectionParameters, PlainCredentials
-from time import sleep
 
+from configuration import start_setting_env_vars_and_log_file
+
+
+start_setting_env_vars_and_log_file()
 
 if not getenv("READ_EMAIL_MESSAGE_RUN_CONTAINER"):
     from app.config_app import load_env_vars
@@ -54,7 +58,6 @@ async def rabbitmq_read_email():
             auto_ack=True,
             on_message_callback=minha_callback
         )
-        print(f'Listen RabbitMQ on port {getenv("RABBITMQ_SERVER_PORT")}')
         channel.start_consuming()
         if not getenv("READ_EMAIL_MESSAGE_RUN_CONTAINER"):
             channel.close()
@@ -65,4 +68,5 @@ async def rabbitmq_read_email():
 
 
 if getenv("READ_EMAIL_MESSAGE_RUN_CONTAINER"):
-    run(rabbitmq_read_email())
+    message = run(rabbitmq_read_email())
+    info(f'message: {message}')

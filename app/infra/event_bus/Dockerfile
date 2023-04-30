@@ -10,6 +10,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip install pika
+RUN pip install python-dotenv
 
 RUN mkdir /app/infra
 RUN mkdir /app/infra/event_bus
@@ -19,6 +20,7 @@ COPY __init__.py /app/
 COPY __init__.py /app/infra/
 COPY __init__.py /app/infra/event_bus/
 COPY listen_queue.py /app/infra/event_bus
+COPY configuration.py /app/infra/event_bus
 
 ADD start_listen_queue.sh /start_listen_queue.sh
 
