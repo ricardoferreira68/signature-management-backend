@@ -1,0 +1,11 @@
+image: python:latest
+
+pages:
+  script:
+    - echo "Nada, ainda!"
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
+    
