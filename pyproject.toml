@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "signature-management-backend"
+name = "app"
 version = "0.1.0"
 description = ""
 authors = ["ricardoferreira68 <jrsf68@gmail.com>"]
