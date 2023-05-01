@@ -6,13 +6,12 @@ then
   export $(cat app/.env | xargs)
 fi
 
-if [ -f app/.env.secret ]
+if [ -f app/.env.secrets ]
 then
-  export $(cat app/.env.secret | xargs)
+  export $(cat app/.env.secrets | xargs)
 fi
 
 cp ./app/infra/rabbitmq/definitions.json ./app/infra/rabbitmq/definitions.copy
-cp ./app/configuration.py ./app/infra/event_bus
 
 sed -i 's/RABBITMQ_USER/'$RABBITMQ_USER'/g' ./app/infra/rabbitmq/definitions.copy
 sed -i 's/RABBITMQ_PASSWORD/'$RABBITMQ_PASSWORD'/g' ./app/infra/rabbitmq/definitions.copy

@@ -1,7 +1,7 @@
 """Define 'env vars' and 'log file'
 """
 
-from logging import DEBUG, FileHandler, StreamHandler, basicConfig
+from logging import DEBUG, FileHandler, basicConfig
 from os import path
 
 from dotenv import load_dotenv
@@ -16,6 +16,10 @@ def logging_configuration(filename):
 
 
 def start_setting_env_vars_and_log_file():
+    """Load env vars and define name logging file.
+
+    >>> start_setting_env_vars_and_log_file()
+    """
     APP_FOLDER_CONFIGURATION = path.dirname(__file__) + '/'
     APP_NAME = APP_FOLDER_CONFIGURATION.split('/')[-3]
 

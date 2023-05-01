@@ -20,7 +20,6 @@ COPY __init__.py /app/
 COPY __init__.py /app/infra/
 COPY __init__.py /app/infra/event_bus/
 COPY listen_queue.py /app/infra/event_bus
-COPY configuration.py /app/infra/event_bus
 
 ADD start_listen_queue.sh /start_listen_queue.sh
 
