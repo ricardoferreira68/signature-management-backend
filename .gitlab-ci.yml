@@ -1,0 +1,6 @@
+image: python:"3.9"
+
+pages:
+  script:
+    - echo
+    

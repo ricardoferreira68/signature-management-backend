@@ -8,7 +8,9 @@ jobs:
     steps:
 
       - name: Copia o projeto
-        uses: actions/checkout@v3.5.2
+        uses: actions/checkout@v3
 
-      - name: Roda outro comando!
-        run: echo $(ls)
+      - name: Instalar o Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
