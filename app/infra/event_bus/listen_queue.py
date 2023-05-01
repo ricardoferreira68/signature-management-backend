@@ -6,10 +6,8 @@ from pika import BlockingConnection, ConnectionParameters, PlainCredentials
 
 if not getenv('READ_EMAIL_MESSAGE_RUN_CONTAINER'):
     from app.configuration import start_setting_env_vars_and_log_file
-else:
-    from configuration import start_setting_env_vars_and_log_file
 
-start_setting_env_vars_and_log_file()
+    start_setting_env_vars_and_log_file()
 
 message = None
 
@@ -67,5 +65,6 @@ async def rabbitmq_read_email():
 
 
 if getenv('READ_EMAIL_MESSAGE_RUN_CONTAINER'):
+    """Run only if the execution comes from the queue listening container."""
     message = run(rabbitmq_read_email())
     info(f'message: {message}')
