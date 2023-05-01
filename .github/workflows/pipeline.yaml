@@ -7,10 +7,22 @@ jobs:
 
     steps:
 
-      - name: Copia o projeto
+      - name: Copy project files
         uses: actions/checkout@v3
 
-      - name: Instalar o Python
+      - name: Intall Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
+
+      - name: Intall Poetry
+        run: pip install poetry 
+
+      - name: Install project dependences
+        run: poetry install --without doc
+
+      - name: Run tests
+        run: poetry run task test
+        
+
+
