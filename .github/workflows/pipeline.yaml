@@ -7,8 +7,8 @@ jobs:
 
     steps:
 
-      - name: Roda um comando!
-        run: echo $(pwd)
+      - name: Copia o projeto
+        uses: actions/checkout@v3.5.2
 
       - name: Roda outro comando!
         run: echo $(ls)
