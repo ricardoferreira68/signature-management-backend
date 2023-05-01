@@ -4,8 +4,11 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
+<<<<<<< HEAD
 
     steps:
+=======
+>>>>>>> a1270a8115517b2e930e4ae8374c6ebf2a2457b9
       - name: Roda um comando!
         run: echo $(pwd)
 
